@@ -1,6 +1,8 @@
 # ── Estágio 1: instalação e build ──────────────────────────────────────────
 FROM node:20-alpine AS builder
 
+RUN apk add --no-cache openssl
+
 WORKDIR /app
 
 COPY package*.json ./
@@ -19,6 +21,8 @@ RUN npx tsc --module commonjs --target ES2020 --esModuleInterop true \
 
 # ── Estágio 2: dependências de produção ─────────────────────────────────────
 FROM node:20-alpine AS deps-prod
+
+RUN apk add --no-cache openssl
 
 WORKDIR /app
 
